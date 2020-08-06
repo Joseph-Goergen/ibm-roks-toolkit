@@ -51,6 +51,7 @@
 // assets/openshift-apiserver/openshift-apiserver-deployment.yaml
 // assets/openshift-apiserver/openshift-apiserver-secret.yaml
 // assets/openshift-apiserver/openshift-apiserver-service.yaml
+// assets/openshift-apiserver/openshift-apiserver-serviceMonitor.yaml
 // assets/openshift-apiserver/openshift-apiserver-user-endpoint.yaml
 // assets/openshift-apiserver/openshift-apiserver-user-service.yaml
 // assets/openshift-apiserver/service-template.yaml
@@ -2585,6 +2586,36 @@ func openshiftApiserverOpenshiftApiserverServiceYaml() (*asset, error) {
 	return a, nil
 }
 
+var _openshiftApiserverOpenshiftApiserverServicemonitorYaml = []byte(`apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: openshift-apiserver
+spec:
+  selector:
+      app: openshift-apiserver
+  endpoints:
+  - metricRelabelings:
+    - action: keep
+      regex: etcd_object_counts
+      sourceLabels:
+      - __name__
+`)
+
+func openshiftApiserverOpenshiftApiserverServicemonitorYamlBytes() ([]byte, error) {
+	return _openshiftApiserverOpenshiftApiserverServicemonitorYaml, nil
+}
+
+func openshiftApiserverOpenshiftApiserverServicemonitorYaml() (*asset, error) {
+	bytes, err := openshiftApiserverOpenshiftApiserverServicemonitorYamlBytes()
+	if err != nil {
+		return nil, err
+	}
+
+	info := bindataFileInfo{name: "openshift-apiserver/openshift-apiserver-serviceMonitor.yaml", size: 0, mode: os.FileMode(0), modTime: time.Unix(0, 0)}
+	a := &asset{bytes: bytes, info: info}
+	return a, nil
+}
+
 var _openshiftApiserverOpenshiftApiserverUserEndpointYaml = []byte(`apiVersion: v1
 kind: Endpoints
 metadata:
@@ -3312,6 +3343,7 @@ var _bindata = map[string]func() (*asset, error){
 	"openshift-apiserver/openshift-apiserver-deployment.yaml":                            openshiftApiserverOpenshiftApiserverDeploymentYaml,
 	"openshift-apiserver/openshift-apiserver-secret.yaml":                                openshiftApiserverOpenshiftApiserverSecretYaml,
 	"openshift-apiserver/openshift-apiserver-service.yaml":                               openshiftApiserverOpenshiftApiserverServiceYaml,
+	"openshift-apiserver/openshift-apiserver-serviceMonitor.yaml":                        openshiftApiserverOpenshiftApiserverServicemonitorYaml,
 	"openshift-apiserver/openshift-apiserver-user-endpoint.yaml":                         openshiftApiserverOpenshiftApiserverUserEndpointYaml,
 	"openshift-apiserver/openshift-apiserver-user-service.yaml":                          openshiftApiserverOpenshiftApiserverUserServiceYaml,
 	"openshift-apiserver/service-template.yaml":                                          openshiftApiserverServiceTemplateYaml,
@@ -3437,6 +3469,7 @@ var _bintree = &bintree{nil, map[string]*bintree{
 		"openshift-apiserver-deployment.yaml":       {openshiftApiserverOpenshiftApiserverDeploymentYaml, map[string]*bintree{}},
 		"openshift-apiserver-secret.yaml":           {openshiftApiserverOpenshiftApiserverSecretYaml, map[string]*bintree{}},
 		"openshift-apiserver-service.yaml":          {openshiftApiserverOpenshiftApiserverServiceYaml, map[string]*bintree{}},
+		"openshift-apiserver-serviceMonitor.yaml":   {openshiftApiserverOpenshiftApiserverServicemonitorYaml, map[string]*bintree{}},
 		"openshift-apiserver-user-endpoint.yaml":    {openshiftApiserverOpenshiftApiserverUserEndpointYaml, map[string]*bintree{}},
 		"openshift-apiserver-user-service.yaml":     {openshiftApiserverOpenshiftApiserverUserServiceYaml, map[string]*bintree{}},
 		"service-template.yaml":                     {openshiftApiserverServiceTemplateYaml, map[string]*bintree{}},

@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: openshift-apiserver
+spec:
+  selector:
+      app: openshift-apiserver
+  endpoints:
+  - metricRelabelings:
+    - action: keep
+      regex: etcd_object_counts
+      sourceLabels:
+      - __name__
